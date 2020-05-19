@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <AutopsyHumanoid.label>perform autopsy</AutopsyHumanoid.label>
+  <AutopsyHumanoid.description>Autopsy a humanoid corpse to obtain various stuff.</AutopsyHumanoid.description>
+  <AutopsyHumanoid.jobString>Performing autopsy.</AutopsyHumanoid.jobString>
+
+
+</LanguageData>

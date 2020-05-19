@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>AutopsyTable (Continued)</name>
+  <packageId>Mlie.AutopsyTable</packageId>
+  <author>bodlosh</author>
+  <url>https://github.com/emipa606/AutopsyTable</url>
+  <supportedVersions>
+    <li>1.0</li>
+    <li>1.1</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
+    <li>
+      <packageId>UnlimitedHugs.HugsLib</packageId>
+      <displayName>HugsLib</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/818773962</steamWorkshopUrl>
+      <downloadUrl>https://github.com/UnlimitedHugs/RimworldHugsLib</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>UnlimitedHugs.HugsLib</li>
+  </loadAfter>
+  <description>Update of bodloshs mod for RimWorld 1.1
+https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
+
+[img]https://i.imgur.com/GYswkZ7.png[/img]
+
+Support-chat:
+https://invite.gg/mlie
+
+Non-steam version:
+https://github.com/emipa606/AutopsyTable
+	
+--- Original Description ---
+Remove organs and bionics from corpses.
+Factors that influence the success chance:
+- doctor skill of the worker
+- corpse age (after 24 hours it is almost impossible to succeed)
+- room surgery success chance and infection chance
+- quality and material of the table (silver!)
+	</description>
+</ModMetaData>
