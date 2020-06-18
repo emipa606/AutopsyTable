@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AutopsyHumanoid.label>произвести вскрытие трупа</AutopsyHumanoid.label>
+  <AutopsyHumanoid.description>Вскрытие трупа человека для извлечения органов.</AutopsyHumanoid.description>
+  <AutopsyHumanoid.jobString>Проводит вскрытие трупа.</AutopsyHumanoid.jobString>
+</LanguageData>
