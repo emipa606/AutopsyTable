@@ -13,6 +13,7 @@ namespace AutopsyTable
 		public static void Postfix (ref IEnumerable<Thing> __result, ref Pawn __instance, Pawn butcher, float efficiency)
 		{
 			Building_WorkTable table = butcher.CurJob.GetTarget (TargetIndex.A).Thing as Building_WorkTable;
+			if (!(table.def.defName == "TableAutopsy")) return;
 			__result = __result.CompackedItems (__instance, table, butcher);
 		}
 
@@ -26,12 +27,8 @@ namespace AutopsyTable
 
 		private static float HarvestPartChance (bool bionic, Building_WorkTable table, Pawn butcher, Pawn corpse)
 		{
-			bool autopsy = (table.def.defName == "TableAutopsy");
 			if (bionic) {
 				return 1f;
-			}
-			if (!autopsy) {
-				return 0f;
 			}
 			float baseFactor = 0.5f;
 			// TABLE

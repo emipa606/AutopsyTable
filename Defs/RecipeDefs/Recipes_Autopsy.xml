@@ -3,7 +3,7 @@
   <RecipeDef>
     <defName>AutopsyHumanoid</defName>
     <label>perform autopsy</label>
-    <description>Autopsy a humanoid corpse to obtain various stuff.</description>
+    <description>Autopsy a humanoid corpse to obtain organs.</description>
     <jobString>Performing autopsy.</jobString>
     <workAmount>1000</workAmount>
     <workSkill>Medicine</workSkill>
