@@ -12,9 +12,16 @@ namespace AutopsyTable
 	{
 		public static void Postfix (ref IEnumerable<Thing> __result, ref Pawn __instance, Pawn butcher, float efficiency)
 		{
-			Building_WorkTable table = butcher.CurJob.GetTarget (TargetIndex.A).Thing as Building_WorkTable;
-			if (!(table.def.defName == "TableAutopsy")) return;
-			__result = __result.CompackedItems (__instance, table, butcher);
+            try
+            {
+                Building_WorkTable table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
+                if (!(table.def.defName == "TableAutopsy")) return;
+                __result = __result.CompackedItems(__instance, table, butcher);
+            } catch (System.Exception e)
+            {
+                Log.Error(e.Message);
+                Log.Error(e.StackTrace);
+            }
 		}
 
 		private static IEnumerable<Thing> CompackedItems (this IEnumerable<Thing> list, Pawn pawn, Building_WorkTable table, Pawn butcher)
