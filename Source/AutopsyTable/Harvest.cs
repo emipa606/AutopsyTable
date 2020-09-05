@@ -12,10 +12,13 @@ namespace AutopsyTable
 	{
 		public static void Postfix (ref IEnumerable<Thing> __result, ref Pawn __instance, Pawn butcher, float efficiency)
 		{
-			Building_WorkTable table = butcher.CurJob.GetTarget (TargetIndex.A).Thing as Building_WorkTable;
-			if (!(table.def.defName == "TableAutopsy")) return;
-			__result = __result.CompackedItems (__instance, table, butcher);
-		}
+			if (butcher.CurJob == null || butcher.CurJob.GetTarget(TargetIndex.A).Thing == null || butcher.CurJob.GetTarget(TargetIndex.A).Thing.def.defName != "TableAutopsy")
+            {
+				return;
+            }
+            Building_WorkTable table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
+            __result = __result.CompackedItems(__instance, table, butcher);
+        }
 
 		private static IEnumerable<Thing> CompackedItems (this IEnumerable<Thing> list, Pawn pawn, Building_WorkTable table, Pawn butcher)
 		{
@@ -33,9 +36,8 @@ namespace AutopsyTable
 			float baseFactor = 0.5f;
 			// TABLE
 			float tableQualityFactor = 1f, tableStuffFactor = 1f;
-			QualityCategory qc;
-			table.TryGetQuality (out qc);
-			string tableQuality = qc.GetLabel ();
+            table.TryGetQuality(out QualityCategory qc);
+            string tableQuality = qc.GetLabel ();
 			string tableStuff = table.Stuff.LabelCap;
 			switch (tableQuality) {
 			case "awful":
@@ -89,11 +91,9 @@ namespace AutopsyTable
 			}
 			float doctorSkillFactor = (skillLevel * skillLevel + 1f) / 300f;
 
-			// CORPSE
-			int years = 0, quadrums = 0, days = 0;
-			float hours = 0f;
-			GenDate.TicksToPeriod (corpse.Corpse.Age, out years, out quadrums, out days, out hours);
-			float corpseAge = hours + 24 * days + 15 * 24 * quadrums + 4 * 15 * 24 * years;
+            // CORPSE
+            GenDate.TicksToPeriod(corpse.Corpse.Age, out int years, out int quadrums, out int days, out float hours);
+            float corpseAge = hours + 24 * days + 15 * 24 * quadrums + 4 * 15 * 24 * years;
 			float corpseAgeFactor = 1.01f;
 			if (corpseAge > 12 && corpseAge < 24) {
 				corpseAgeFactor = (24f - corpseAge) / 20f + 0.01f;

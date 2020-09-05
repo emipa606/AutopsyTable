@@ -6,7 +6,7 @@ namespace AutopsyTable
 {
     public class Building_AutopsyTable : Building_WorkTable
     {
-		private int MAX_HOURS = 24;
+		private readonly int MAX_HOURS = 24;
 
 		public Building_AutopsyTable ()
 		{
@@ -36,9 +36,8 @@ namespace AutopsyTable
 		{
 			StringBuilder sb = new StringBuilder ();
 			sb.AppendLine (base.GetInspectString ());
-			QualityCategory qc;
-			this.TryGetQuality (out qc);
-			string tq = qc.GetLabel ();
+            this.TryGetQuality(out QualityCategory qc);
+            string tq = qc.GetLabel ();
 			string ts = this.Stuff.LabelCap;
 			float infectionFactor = this.GetRoom (RegionType.Set_Passable).GetStat (RoomStatDefOf.InfectionChanceFactor);
 			// sb.AppendLine ("Room quality factor: " + Calculation.roomFactor(infectionFactor, infectionFactor));
