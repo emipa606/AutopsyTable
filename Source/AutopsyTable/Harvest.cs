@@ -1,160 +1,197 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using RimWorld;
-using Verse;
 using HarmonyLib;
+using RimWorld;
+using UnityEngine;
+using Verse;
 using Verse.AI;
 
 namespace AutopsyTable
 {
-    [HarmonyPatch (typeof(Pawn), "ButcherProducts")]
-	public static class Harvest
-	{
-		public static void Postfix (ref IEnumerable<Thing> __result, ref Pawn __instance, Pawn butcher, float efficiency)
-		{
-			if (butcher.CurJob == null || butcher.CurJob.GetTarget(TargetIndex.A).Thing == null || butcher.CurJob.GetTarget(TargetIndex.A).Thing.def.defName != "TableAutopsy")
+    [HarmonyPatch(typeof(Corpse), "ButcherProducts")]
+    public static class Harvest
+    {
+        public static bool Prefix(ref IEnumerable<Thing> __result, ref Corpse __instance, Pawn butcher,
+            float efficiency)
+        {
+            if (butcher.CurJob?.GetTarget(TargetIndex.A).Thing == null ||
+                butcher.CurJob.GetTarget(TargetIndex.A).Thing.def.defName != "TableAutopsy")
             {
-				return;
+                return true;
             }
-            Building_WorkTable table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
-            __result = __result.CompackedItems(__instance, table, butcher);
+
+            var table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
+            __result = __instance.InnerPawn.DetachValuableItems(table, butcher);
+
+            if (__instance.InnerPawn.RaceProps.BloodDef != null)
+            {
+                FilthMaker.TryMakeFilth(butcher.Position, butcher.Map, __instance.InnerPawn.RaceProps.BloodDef,
+                    __instance.InnerPawn.LabelIndefinite());
+            }
+
+            return false;
         }
 
-		private static IEnumerable<Thing> CompackedItems (this IEnumerable<Thing> list, Pawn pawn, Building_WorkTable table, Pawn butcher)
-		{
-			foreach (Thing thing in list)
-				yield return thing;
-			foreach (Thing thing in pawn.DetachValuableItems(table, butcher))
-				yield return thing;
-		}
+        private static float HarvestPartChance(bool bionic, Building_WorkTable table, Pawn butcher, Pawn corpse)
+        {
+            if (bionic)
+            {
+                return 1f;
+            }
 
-		private static float HarvestPartChance (bool bionic, Building_WorkTable table, Pawn butcher, Pawn corpse)
-		{
-			if (bionic) {
-				return 1f;
-			}
-			float baseFactor = 0.5f;
-			// TABLE
-			float tableQualityFactor = 1f, tableStuffFactor = 1f;
-            table.TryGetQuality(out QualityCategory qc);
-            string tableQuality = qc.GetLabel ();
-			string tableStuff = table.Stuff.LabelCap;
-			switch (tableQuality) {
-			case "awful":
-				tableQualityFactor = 0.7f;
-				break;
-			case "shoddy":
-				tableQualityFactor = 0.8f;
-				break;
-			case "poor":
-				tableQualityFactor = 0.9f;
-				break;
-			case "normal":
-				tableQualityFactor = 1f;
-				break;
-			case "good":
-				tableQualityFactor = 1.1f;
-				break;
-			case "superior":
-				tableQualityFactor = 1.2f;
-				break;
-			case "excellent":
-				tableQualityFactor = 1.3f;
-				break;
-			case "masterwork":
-				tableQualityFactor = 1.4f;
-				break;
-			case "legendary":
-				tableQualityFactor = 1.5f;
-				break;
-			}
-			switch (tableStuff) {
-			case "Silver":
-				tableStuffFactor = 1.2f;
-				break;
-			case "Steel":
-				tableStuffFactor = 1.1f;
-				break;
-			case "Wood":
-				tableStuffFactor = 0.9f;
-				break;
-			}
+            var baseFactor = 0.5f;
+            // TABLE
+            float tableQualityFactor = 1f, tableStuffFactor = 1f;
+            table.TryGetQuality(out var qc);
+            var tableQuality = qc.GetLabel();
+            string tableStuff = table.Stuff.LabelCap;
+            switch (tableQuality)
+            {
+                case "awful":
+                    tableQualityFactor = 0.7f;
+                    break;
+                case "shoddy":
+                    tableQualityFactor = 0.8f;
+                    break;
+                case "poor":
+                    tableQualityFactor = 0.9f;
+                    break;
+                case "normal":
+                    tableQualityFactor = 1f;
+                    break;
+                case "good":
+                    tableQualityFactor = 1.1f;
+                    break;
+                case "superior":
+                    tableQualityFactor = 1.2f;
+                    break;
+                case "excellent":
+                    tableQualityFactor = 1.3f;
+                    break;
+                case "masterwork":
+                    tableQualityFactor = 1.4f;
+                    break;
+                case "legendary":
+                    tableQualityFactor = 1.5f;
+                    break;
+            }
 
-			// ROOM
-			float infectionChance = table.GetRoom (RegionType.Set_Passable).GetStat (RoomStatDefOf.InfectionChanceFactor);
-			float roomInfectionFactor = (1 - infectionChance) + 0.5f;
-			// BUTCHER
-			SkillRecord skill = butcher.skills.GetSkill (SkillDefOf.Medicine);
-			int skillLevel = 0;
-			if (skill != null) {
-				skillLevel = skill.Level;
-			}
-			float doctorSkillFactor = (skillLevel * skillLevel + 1f) / 300f;
+            switch (tableStuff)
+            {
+                case "Silver":
+                    tableStuffFactor = 1.2f;
+                    break;
+                case "Steel":
+                    tableStuffFactor = 1.1f;
+                    break;
+                case "Wood":
+                    tableStuffFactor = 0.9f;
+                    break;
+            }
+
+            // ROOM
+            var infectionChance = table.GetRoom().GetStat(RoomStatDefOf.InfectionChanceFactor);
+            var roomInfectionFactor = 1 - infectionChance + 0.5f;
+            // BUTCHER
+            var skill = butcher.skills.GetSkill(SkillDefOf.Medicine);
+            var skillLevel = 0;
+            if (skill != null)
+            {
+                skillLevel = skill.Level;
+            }
+
+            var doctorSkillFactor = ((skillLevel * skillLevel) + 1f) / 300f;
 
             // CORPSE
-            GenDate.TicksToPeriod(corpse.Corpse.Age, out int years, out int quadrums, out int days, out float hours);
-            float corpseAge = hours + 24 * days + 15 * 24 * quadrums + 4 * 15 * 24 * years;
-			float corpseAgeFactor = 1.01f;
-			if (corpseAge > 12 && corpseAge < 24) {
-				corpseAgeFactor = (24f - corpseAge) / 20f + 0.01f;
-			} else if (corpseAge >= 24) {
-				corpseAgeFactor = 0.01f;
-			}
-			float chance = baseFactor * tableQualityFactor * tableStuffFactor * roomInfectionFactor * doctorSkillFactor * corpseAgeFactor;
-			if (Prefs.DevMode) {
-				Log.Message ("Base chance: " + baseFactor);
-				Log.Message ("Table quality: " + tableQuality + " = " + tableQualityFactor);
-				Log.Message ("Table stuff: " + tableStuff + " = " + tableStuffFactor);
-				Log.Message ("Infection chance: " + infectionChance + " = " + roomInfectionFactor);
-				Log.Message ("Doctor skill: " + skillLevel + " = " + doctorSkillFactor);
-				Log.Message ("Corpse age: " + corpseAge + "h" + " = " + corpseAgeFactor);
-				Log.Message ("Total: " + chance);
-			}
-			return chance;
-		}
+            corpse.Corpse.Age.TicksToPeriod(out var years, out var quadrums, out var days, out var hours);
+            var corpseAge = hours + (24 * days) + (15 * 24 * quadrums) + (4 * 15 * 24 * years);
+            var corpseAgeFactor = 1.01f;
+            if (corpseAge > 12 && corpseAge < 24)
+            {
+                corpseAgeFactor = ((24f - corpseAge) / 20f) + 0.01f;
+            }
+            else if (corpseAge >= 24)
+            {
+                corpseAgeFactor = 0.01f;
+            }
 
-		private static bool HarvestPart (float livingChance, float bionicChance, bool bionic)
-		{
-			float rnd = UnityEngine.Random.value;
-			if (bionic) {
-				if (Prefs.DevMode) {
-					Log.Message ("TRY: " + rnd + " < " + bionicChance);
-				}
-				return rnd < bionicChance;
-			} else {
-				if (Prefs.DevMode) {
-					Log.Message ("TRY: " + rnd + " < " + livingChance);
-				}
-				return rnd < livingChance;
-			}
-		}
+            var chance = baseFactor * tableQualityFactor * tableStuffFactor * roomInfectionFactor * doctorSkillFactor *
+                         corpseAgeFactor;
+            if (!Prefs.DevMode)
+            {
+                return chance;
+            }
 
-		private static IEnumerable<Thing> DetachValuableItems (this Pawn corpse, Building_WorkTable table, Pawn butcher)
-		{
-			float bionicChance = HarvestPartChance (true, table, butcher, corpse);
-			float livingChance = HarvestPartChance (false, table, butcher, corpse);
-			IEnumerable<BodyPartRecord> parts = corpse.health.hediffSet.GetNotMissingParts (BodyPartHeight.Undefined, BodyPartDepth.Undefined);
-			foreach (BodyPartRecord record in parts) {
-				IEnumerable<Hediff> hediffs = from x in corpse.health.hediffSet.hediffs
-				                              where x.Part == record
-				                              select x;
-				if (hediffs.Any ()) {
-					// bionic parts
-					foreach (Hediff hediff in hediffs) {
-						if (hediff.def.spawnThingOnRemoved != null && HarvestPart (livingChance, bionicChance, true)) {
-							yield return ThingMaker.MakeThing (hediff.def.spawnThingOnRemoved, null);
-						}
-					}
-				} else {
-					if (record.def.spawnThingOnRemoved != null) {
-						if (HarvestPart (livingChance, bionicChance, !record.def.alive)) {
-							corpse.health.AddHediff (HediffMaker.MakeHediff (HediffDefOf.MissingBodyPart, corpse, record), null, null);
-							yield return ThingMaker.MakeThing (record.def.spawnThingOnRemoved, null);
-						}
-					}
-				}
-			}
-		}
-	}
+            Log.Message("Base chance: " + baseFactor);
+            Log.Message("Table quality: " + tableQuality + " = " + tableQualityFactor);
+            Log.Message("Table stuff: " + tableStuff + " = " + tableStuffFactor);
+            Log.Message("Infection chance: " + infectionChance + " = " + roomInfectionFactor);
+            Log.Message("Doctor skill: " + skillLevel + " = " + doctorSkillFactor);
+            Log.Message("Corpse age: " + corpseAge + "h" + " = " + corpseAgeFactor);
+            Log.Message("Total: " + chance);
+
+            return chance;
+        }
+
+        private static bool HarvestPart(float livingChance, float bionicChance, bool bionic)
+        {
+            var rnd = Random.value;
+            if (bionic)
+            {
+                if (Prefs.DevMode)
+                {
+                    Log.Message("TRY: " + rnd + " < " + bionicChance);
+                }
+
+                return rnd < bionicChance;
+            }
+
+            if (Prefs.DevMode)
+            {
+                Log.Message("TRY: " + rnd + " < " + livingChance);
+            }
+
+            return rnd < livingChance;
+        }
+
+        private static IEnumerable<Thing> DetachValuableItems(this Pawn corpse, Building_WorkTable table, Pawn butcher)
+        {
+            var bionicChance = HarvestPartChance(true, table, butcher, corpse);
+            var livingChance = HarvestPartChance(false, table, butcher, corpse);
+            var parts = corpse.health.hediffSet.GetNotMissingParts();
+            foreach (var record in parts)
+            {
+                var hediffs = from x in corpse.health.hediffSet.hediffs
+                    where x.Part == record
+                    select x;
+                if (hediffs.Any())
+                {
+                    // bionic parts
+                    foreach (var hediff in hediffs)
+                    {
+                        if (hediff.def.spawnThingOnRemoved != null && HarvestPart(livingChance, bionicChance, true))
+                        {
+                            yield return ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved);
+                        }
+                    }
+                }
+                else
+                {
+                    if (record.def.spawnThingOnRemoved == null)
+                    {
+                        continue;
+                    }
+
+                    if (!HarvestPart(livingChance, bionicChance, !record.def.alive))
+                    {
+                        continue;
+                    }
+
+                    corpse.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, corpse,
+                        record));
+                    yield return ThingMaker.MakeThing(record.def.spawnThingOnRemoved);
+                }
+            }
+        }
+    }
 }
-

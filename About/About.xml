@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>AutopsyTable (Continued)</name>
   <packageId>Mlie.AutopsyTable</packageId>
@@ -27,23 +27,40 @@
     <li>brrainz.harmony</li>
     <li>UnlimitedHugs.HugsLib</li>
   </loadAfter>
-  <description>Update of bodloshs mod
+  <description>[img]https://i.imgur.com/WAEzk68.png[/img]
+Update of bodloshs mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
 
-[img]https://i.imgur.com/GYswkZ7.png[/img]
+- Added Russian translation, by jose
 
-Support-chat:
-https://invite.gg/mlie
+[img]https://i.imgur.com/7Gzt3Rg.png[/img]
 
-Non-steam version:
-https://github.com/emipa606/AutopsyTable
+[table]
+	[tr]
+		[td][url=https://invite.gg/Mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td]
+		[td][url=https://github.com/emipa606/AutopsyTable][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
+	[/tr]
+[/table]
 	
---- Original Description ---
+[img]https://i.imgur.com/NOW7jU1.png[/img]
+
 Remove organs and bionics from corpses.
-Factors that influence the success chance:
-- doctor skill of the worker
-- corpse age (after 24 hours it is almost impossible to succeed)
-- room surgery success chance and infection chance
-- quality and material of the table (silver!)
-	</description>
+		Factors that influence the success chance:
+		- doctor skill of the worker
+		- corpse age (after 24 hours it is almost impossible to succeed)
+		- room surgery success chance and infection chance
+		- quality and material of the table (silver!)
+
+
+[img]https://i.imgur.com/Rs6T6cr.png[/img]
+[list]
+[*] See if the the error persists if you just have this mod and its requirements active.
+[*] If not, try adding your other mods until it happens again.
+[*] Post your error-log using [url=https://steamcommunity.com/workshop/filedetails/?id=818773962]HugsLib[/url] and command Ctrl+F12
+[*] For best support, please use the Discord-channel for error-reporting.
+[*] Do not report errors by making a discussion-thread, I get no notification of that.
+[*] If you have the solution for a problem, please post it to the GitHub repository.
+[/list]
+</description>
 </ModMetaData>
+

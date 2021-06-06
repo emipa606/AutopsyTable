@@ -4,9 +4,8 @@ using Verse;
 namespace AutopsyTable
 {
     [StaticConstructorOnStartup]
-	public class Initialization : ModBase
-	{
-		public override string ModIdentifier => "AutopsyTable";
-	}
+    public class Initialization : ModBase
+    {
+        public override string ModIdentifier => "AutopsyTable";
+    }
 }
-
