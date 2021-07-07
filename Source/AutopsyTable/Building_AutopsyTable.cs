@@ -33,9 +33,9 @@ namespace AutopsyTable
             var sb = new StringBuilder();
             sb.AppendLine(base.GetInspectString());
             this.TryGetQuality(out var qc);
-            var tq = qc.GetLabel();
-            string ts = Stuff.LabelCap;
-            var infectionFactor = this.GetRoom().GetStat(RoomStatDefOf.InfectionChanceFactor);
+            var unused = qc.GetLabel();
+            string unused1 = Stuff.LabelCap;
+            var unused2 = this.GetRoom().GetStat(RoomStatDefOf.InfectionChanceFactor);
             // sb.AppendLine ("Room quality factor: " + Calculation.roomFactor(infectionFactor, infectionFactor));
             // sb.AppendLine ("Table material & quality: " + Calculation.tableQualityFactor (tq) * Calculation.tableStuffFactor (ts));
 

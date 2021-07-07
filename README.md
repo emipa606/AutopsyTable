@@ -6,6 +6,7 @@ Update of bodloshs mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
 
 - Added Russian translation, by jose
+- Will not cause butchered human debuff as it did not make sense
 
 ![Image](https://i.imgur.com/7Gzt3Rg.png)
 
@@ -40,6 +41,7 @@ Remove organs and bionics from corpses.
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
+
 
 
 
