@@ -11,25 +11,25 @@ namespace AutopsyTable
     [HarmonyPatch(typeof(Corpse), "ButcherProducts")]
     public static class Harvest
     {
-        public static bool Prefix(ref IEnumerable<Thing> __result, ref Corpse __instance, Pawn butcher,
+        public static void Postfix(ref IEnumerable<Thing> __result, ref Corpse __instance, Pawn butcher,
             float efficiency)
         {
             if (butcher.CurJob?.GetTarget(TargetIndex.A).Thing == null ||
                 butcher.CurJob.GetTarget(TargetIndex.A).Thing.def.defName != "TableAutopsy")
             {
-                return true;
+                return;
             }
 
             var table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
-            __result = __instance.InnerPawn.DetachValuableItems(table, butcher);
-
+            var valuableItems = __instance.InnerPawn.DetachValuableItems(table, butcher).ToList();
+            valuableItems.AddRange(__result);
             if (__instance.InnerPawn.RaceProps.BloodDef != null)
             {
                 FilthMaker.TryMakeFilth(butcher.Position, butcher.Map, __instance.InnerPawn.RaceProps.BloodDef,
                     __instance.InnerPawn.LabelIndefinite());
             }
 
-            return false;
+            __result = valuableItems;
         }
 
         private static float HarvestPartChance(bool bionic, Building_WorkTable table, Pawn butcher, Pawn corpse)

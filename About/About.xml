@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>AutopsyTable (Continued)</name>
   <packageId>Mlie.AutopsyTable</packageId>
@@ -28,14 +28,14 @@
     <li>brrainz.harmony</li>
     <li>UnlimitedHugs.HugsLib</li>
   </loadAfter>
-  <description>[img]https://i.imgur.com/WAEzk68.png[/img]
+  <description>[img]https://i.imgur.com/buuPQel.png[/img]
 Update of bodloshs mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
 
 - Added Russian translation, by jose
 - Will not cause butchered human debuff as it did not make sense
 
-[img]https://i.imgur.com/7Gzt3Rg.png[/img]
+[img]https://i.imgur.com/pufA0kM.png[/img]
 
 [table]
 	[tr]
@@ -44,7 +44,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
 	[/tr]
 [/table]
 	
-[img]https://i.imgur.com/NOW7jU1.png[/img]
+[img]https://i.imgur.com/Z4GOv8H.png[/img]
 
 Remove organs and bionics from corpses.
 		Factors that influence the success chance:
@@ -54,7 +54,7 @@ Remove organs and bionics from corpses.
 		- quality and material of the table (silver!)
 
 
-[img]https://i.imgur.com/Rs6T6cr.png[/img]
+[img]https://i.imgur.com/PwoNOj4.png[/img]
 [list]
 [*] See if the the error persists if you just have this mod and its requirements active.
 [*] If not, try adding your other mods until it happens again.
@@ -63,6 +63,5 @@ Remove organs and bionics from corpses.
 [*] Do not report errors by making a discussion-thread, I get no notification of that.
 [*] If you have the solution for a problem, please post it to the GitHub repository.
 [/list]
-
 </description>
 </ModMetaData>
