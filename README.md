@@ -6,7 +6,6 @@ Update of bodloshs mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
 
 - Added Russian translation, by jose
-- Will not cause butchered human debuff as it did not make sense
 
 ![Image](https://i.imgur.com/pufA0kM.png)
 

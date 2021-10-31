@@ -1,5 +1,8 @@
 # Changelog for AutopsyTable
 
+1.0.7.0 - Splitted the autopsy into two versions as it was requested
+
+
 1.0.6.0 - Should now properly give meat/leather again. For some reason I missed that in the 1.1 update
 
 
