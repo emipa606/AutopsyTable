@@ -6,6 +6,7 @@ Update of bodloshs mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
 
 - Added Russian translation, by jose
+- There are now two different autopsies, normal that only gives organs/bionics and no butcher debuff, brutal that also gives skin/flesh but also a butchering debuff
 
 ![Image](https://i.imgur.com/pufA0kM.png)
 

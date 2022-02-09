@@ -1,11 +1,10 @@
 ﻿using HugsLib;
 using Verse;
 
-namespace AutopsyTable
+namespace AutopsyTable;
+
+[StaticConstructorOnStartup]
+public class Initialization : ModBase
 {
-    [StaticConstructorOnStartup]
-    public class Initialization : ModBase
-    {
-        public override string ModIdentifier => "AutopsyTable";
-    }
+    public override string ModIdentifier => "AutopsyTable";
 }
