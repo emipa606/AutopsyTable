@@ -1,5 +1,8 @@
 # Changelog for AutopsyTable
 
+1.3.2 - Fixed the double-drop
+
+
 1.3.1 - Autopsies will now have a chance of spawning Skulls if Ideology is active
 
 

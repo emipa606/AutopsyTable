@@ -11,29 +11,29 @@ namespace AutopsyTable;
 [HarmonyPatch(typeof(Corpse), "ButcherProducts")]
 public static class Harvest
 {
-    public static bool Prefix(ref IEnumerable<Thing> __result, ref Corpse __instance, Pawn butcher)
-    {
-        if (butcher.CurJob?.GetTarget(TargetIndex.A).Thing == null ||
-            butcher.CurJob.GetTarget(TargetIndex.A).Thing.def.defName != "TableAutopsy")
-        {
-            return true;
-        }
+    //public static bool Prefix(ref IEnumerable<Thing> __result, ref Corpse __instance, Pawn butcher)
+    //{
+    //    if (butcher.CurJob?.GetTarget(TargetIndex.A).Thing == null ||
+    //        butcher.CurJob.GetTarget(TargetIndex.A).Thing.def.defName != "TableAutopsy")
+    //    {
+    //        return true;
+    //    }
 
-        if (butcher.CurJob?.RecipeDef?.defName != "AutopsyHumanoid")
-        {
-            return true;
-        }
+    //    if (butcher.CurJob?.RecipeDef?.defName != "AutopsyHumanoid")
+    //    {
+    //        return true;
+    //    }
 
-        var table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
-        __result = __instance.InnerPawn.DetachValuableItems(table, butcher).ToList();
-        if (__instance.InnerPawn.RaceProps.BloodDef != null)
-        {
-            FilthMaker.TryMakeFilth(butcher.Position, butcher.Map, __instance.InnerPawn.RaceProps.BloodDef,
-                __instance.InnerPawn.LabelIndefinite());
-        }
+    //    var table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
+    //    __result = __instance.InnerPawn.DetachValuableItems(table, butcher).ToList();
+    //    if (__instance.InnerPawn.RaceProps.BloodDef != null)
+    //    {
+    //        FilthMaker.TryMakeFilth(butcher.Position, butcher.Map, __instance.InnerPawn.RaceProps.BloodDef,
+    //            __instance.InnerPawn.LabelIndefinite());
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
 
     public static void Postfix(ref IEnumerable<Thing> __result, ref Corpse __instance, Pawn butcher)
     {
