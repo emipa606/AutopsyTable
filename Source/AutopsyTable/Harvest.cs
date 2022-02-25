@@ -42,6 +42,7 @@ public static class Harvest
         {
             return;
         }
+
         if (butcher.CurJob?.RecipeDef?.defName == "AutopsyHumanoid")
         {
             return;

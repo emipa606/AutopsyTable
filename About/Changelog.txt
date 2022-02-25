@@ -1,5 +1,8 @@
 # Changelog for AutopsyTable
 
+1.3.3 - Fixed the autopsies after the last patch, thanks gulegule!
+
+
 1.3.2 - Fixed the double-drop
 
 
