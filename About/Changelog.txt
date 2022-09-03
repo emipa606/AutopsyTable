@@ -1,5 +1,8 @@
 # Changelog for AutopsyTable
 
+1.3.4 - Added support for autopsy of creatures from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=765890823]Call of Cthulhu - Cosmic Horrors[/url]
+
+
 1.3.3 - Fixed the autopsies after the last patch, thanks gulegule!
 
 
