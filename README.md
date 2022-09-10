@@ -8,6 +8,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
 - Added Russian translation, by jose
 - There are now two different autopsies, normal that only gives organs/bionics and no butcher debuff, brutal that also gives skin/flesh but also a butchering debuff
 - If Ideology is installed, autopsies have a chance of spawning skulls
+- Added support for autopsy of creatures from https://steamcommunity.com/sharedfiles/filedetails/?id=765890823]Call of Cthulhu - Cosmic Horrors
 
 ![Image](https://i.imgur.com/pufA0kM.png)
 
