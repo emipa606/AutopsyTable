@@ -1,5 +1,4 @@
-﻿using System.Text;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 
 namespace AutopsyTable;
@@ -28,17 +27,17 @@ public class Building_AutopsyTable : Building_WorkTable
         Log.Message("click");
     }
 
-    public override string GetInspectString()
-    {
-        var sb = new StringBuilder();
-        sb.AppendLine(base.GetInspectString());
-        this.TryGetQuality(out var qc);
-        var unused = qc.GetLabel();
-        string unused1 = Stuff.LabelCap;
-        var unused2 = this.GetRoom().GetStat(RoomStatDefOf.InfectionChanceFactor);
-        // sb.AppendLine ("Room quality factor: " + Calculation.roomFactor(infectionFactor, infectionFactor));
-        // sb.AppendLine ("Table material & quality: " + Calculation.tableQualityFactor (tq) * Calculation.tableStuffFactor (ts));
+    //public override string GetInspectString()
+    //{
+    //    var sb = new StringBuilder();
+    //    sb.AppendLine(base.GetInspectString());
+    //    this.TryGetQuality(out var qc);
+    //    var unused = qc.GetLabel();
+    //    string unused1 = Stuff.LabelCap;
+    //    var unused2 = this.GetRoom().GetStat(RoomStatDefOf.InfectionChanceFactor);
+    //    // sb.AppendLine ("Room quality factor: " + Calculation.roomFactor(infectionFactor, infectionFactor));
+    //    // sb.AppendLine ("Table material & quality: " + Calculation.tableQualityFactor (tq) * Calculation.tableStuffFactor (ts));
 
-        return sb.ToString().TrimEndNewlines();
-    }
+    //    return sb.ToString().TrimEndNewlines();
+    //}
 }

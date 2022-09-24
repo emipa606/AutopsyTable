@@ -48,7 +48,7 @@ public static class Harvest
             return;
         }
 
-        var table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
+        var table = butcher.CurJob?.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
         var valuableItems = __instance.InnerPawn.DetachValuableItems(table, butcher).ToList();
         valuableItems.AddRange(__result);
         if (__instance.InnerPawn.RaceProps.BloodDef != null)
@@ -150,13 +150,13 @@ public static class Harvest
             return chance;
         }
 
-        Log.Message("Base chance: " + baseFactor);
-        Log.Message("Table quality: " + tableQuality + " = " + tableQualityFactor);
-        Log.Message("Table stuff: " + tableStuff + " = " + tableStuffFactor);
-        Log.Message("Infection chance: " + infectionChance + " = " + roomInfectionFactor);
-        Log.Message("Doctor skill: " + skillLevel + " = " + doctorSkillFactor);
-        Log.Message("Corpse age: " + corpseAge + "h" + " = " + corpseAgeFactor);
-        Log.Message("Total: " + chance);
+        Log.Message($"Base chance: {baseFactor}");
+        Log.Message($"Table quality: {tableQuality} = {tableQualityFactor}");
+        Log.Message($"Table stuff: {tableStuff} = {tableStuffFactor}");
+        Log.Message($"Infection chance: {infectionChance} = {roomInfectionFactor}");
+        Log.Message($"Doctor skill: {skillLevel} = {doctorSkillFactor}");
+        Log.Message($"Corpse age: {corpseAge}h = {corpseAgeFactor}");
+        Log.Message($"Total: {chance}");
 
         return chance;
     }
@@ -168,7 +168,7 @@ public static class Harvest
         {
             if (Prefs.DevMode)
             {
-                Log.Message("TRY: " + rnd + " < " + bionicChance);
+                Log.Message($"TRY: {rnd} < {bionicChance}");
             }
 
             return rnd < bionicChance;
@@ -176,7 +176,7 @@ public static class Harvest
 
         if (Prefs.DevMode)
         {
-            Log.Message("TRY: " + rnd + " < " + livingChance);
+            Log.Message($"TRY: {rnd} < {livingChance}");
         }
 
         return rnd < livingChance;
