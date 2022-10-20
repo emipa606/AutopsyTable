@@ -134,13 +134,14 @@ public static class Harvest
         corpse.Corpse.Age.TicksToPeriod(out var years, out var quadrums, out var days, out var hours);
         var corpseAge = hours + (24 * days) + (15 * 24 * quadrums) + (4 * 15 * 24 * years);
         var corpseAgeFactor = 1.01f;
-        if (corpseAge is > 12 and < 24)
+        switch (corpseAge)
         {
-            corpseAgeFactor = ((24f - corpseAge) / 20f) + 0.01f;
-        }
-        else if (corpseAge >= 24)
-        {
-            corpseAgeFactor = 0.01f;
+            case > 12 and < 24:
+                corpseAgeFactor = ((24f - corpseAge) / 20f) + 0.01f;
+                break;
+            case >= 24:
+                corpseAgeFactor = 0.01f;
+                break;
         }
 
         var chance = baseFactor * tableQualityFactor * tableStuffFactor * roomInfectionFactor * doctorSkillFactor *

@@ -9,6 +9,7 @@
     <li>1.1</li>
     <li>1.2</li>
     <li>1.3</li>
+    <li>1.4</li>
   </supportedVersions>
   <modDependencies>
     <li>
@@ -29,6 +30,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
 - There are now two different autopsies, normal that only gives organs/bionics and no butcher debuff, brutal that also gives skin/flesh but also a butchering debuff
 - If Ideology is installed, autopsies have a chance of spawning skulls
 - Added support for autopsy of creatures from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=765890823]Call of Cthulhu - Cosmic Horrors[/url]
+- Removed legacy reference to HugsLib
+- Cleaned up the graphics a bit
 
 [img]https://i.imgur.com/pufA0kM.png[/img]
 
