@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingCategoryDef[defName="ROM_CosmicHorrorCorpses"]</xpath>
+    <success>Always</success>
+    <match Class="PatchOperationSequence">
+      <success>Always</success>
+      <operations>
+        <li Class="PatchOperationAdd" MayRequire="rimofmadness.CallofCthulhuCosmicHorrors">
+          <xpath>/Defs/RecipeDef[defName="AutopsyHumanoid" or defName="AutopsyHumanoidBrutal"]/ingredients/li/filter/categories</xpath>
+          <value>
+            <li>ROM_CosmicHorrorCorpses</li>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd" MayRequire="rimofmadness.CallofCthulhuCosmicHorrors">
+          <xpath>/Defs/RecipeDef[defName="AutopsyHumanoid" or defName="AutopsyHumanoidBrutal"]/fixedIngredientFilter/categories</xpath>
+          <value>
+            <li>ROM_CosmicHorrorCorpses</li>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+</Patch>
