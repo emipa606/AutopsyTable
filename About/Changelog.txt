@@ -1,5 +1,8 @@
 # Changelog for AutopsyTable
 
+1.5.1 - Non-fresh corpses will never yield natural organs. Dessicated corpses will not yield flesh or leather
+
+
 1.5.0 - Mod updated for 1.5 and passed autotests
 
 

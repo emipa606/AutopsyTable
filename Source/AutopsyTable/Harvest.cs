@@ -26,7 +26,7 @@ public static class Harvest
 
         var table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
         __result = __instance.InnerPawn.DetachValuableItems(table, butcher).ToList();
-        if (__instance.InnerPawn.RaceProps.BloodDef != null)
+        if (!__instance.IsDessicated() && __instance.InnerPawn.RaceProps.BloodDef != null)
         {
             FilthMaker.TryMakeFilth(butcher.Position, butcher.Map, __instance.InnerPawn.RaceProps.BloodDef,
                 __instance.InnerPawn.LabelIndefinite());
@@ -48,10 +48,20 @@ public static class Harvest
             return;
         }
 
+        if (__instance.GetRotStage() != RotStage.Fresh)
+        {
+            __result = __result.Where(thing => thing.def.IsMeat || thing.def.IsLeather);
+        }
+
+        if (__instance.IsDessicated())
+        {
+            __result = new List<Thing>();
+        }
+
         var table = butcher.CurJob?.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
         var valuableItems = __instance.InnerPawn.DetachValuableItems(table, butcher).ToList();
         valuableItems.AddRange(__result);
-        if (__instance.InnerPawn.RaceProps.BloodDef != null)
+        if (!__instance.IsDessicated() && __instance.InnerPawn.RaceProps.BloodDef != null)
         {
             FilthMaker.TryMakeFilth(butcher.Position, butcher.Map, __instance.InnerPawn.RaceProps.BloodDef,
                 __instance.InnerPawn.LabelIndefinite());
@@ -198,36 +208,47 @@ public static class Harvest
                 // bionic parts
                 foreach (var hediff in hediffs)
                 {
-                    if (hediff.def.spawnThingOnRemoved != null && HarvestPart(livingChance, bionicChance, true))
+                    if (hediff.def.spawnThingOnRemoved == null)
+                    {
+                        continue;
+                    }
+
+                    if (corpse.GetRotStage() != RotStage.Fresh && hediff.def.spawnThingOnRemoved.IsNaturalOrgan)
+                    {
+                        continue;
+                    }
+
+                    if (HarvestPart(livingChance, bionicChance, true))
                     {
                         yield return ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved);
                     }
                 }
             }
-            else
+
+            if (record.def.defName == "Skull" && ModLister.IdeologyInstalled)
             {
-                var ideologySkull = record.def.defName == "Skull" && ModLister.IdeologyInstalled;
-                if (record.def.spawnThingOnRemoved == null && !ideologySkull)
-                {
-                    continue;
-                }
-
-                if (!HarvestPart(livingChance, bionicChance, !record.def.alive))
-                {
-                    continue;
-                }
-
-                corpse.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, corpse,
-                    record));
-                if (ideologySkull)
-                {
-                    yield return ThingMaker.MakeThing(ThingDefOf.Skull);
-                }
-                else
-                {
-                    yield return ThingMaker.MakeThing(record.def.spawnThingOnRemoved);
-                }
+                corpse.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, corpse, record));
+                yield return ThingMaker.MakeThing(ThingDefOf.Skull);
+                continue;
             }
+
+            if (record.def.spawnThingOnRemoved == null)
+            {
+                continue;
+            }
+
+            if (corpse.GetRotStage() != RotStage.Fresh)
+            {
+                continue;
+            }
+
+            if (!HarvestPart(livingChance, bionicChance, !record.def.alive))
+            {
+                continue;
+            }
+
+            corpse.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, corpse, record));
+            yield return ThingMaker.MakeThing(record.def.spawnThingOnRemoved);
         }
     }
 }
