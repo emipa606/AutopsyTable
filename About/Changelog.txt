@@ -1,5 +1,8 @@
 # Changelog for AutopsyTable
 
+1.5.2 - Fixed compatibility with anomaly entities
+
+
 1.5.1 - Non-fresh corpses will never yield natural organs. Dessicated corpses will not yield flesh or leather
 
 

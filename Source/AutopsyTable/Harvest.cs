@@ -25,7 +25,7 @@ public static class Harvest
         }
 
         var table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
-        __result = __instance.InnerPawn.DetachValuableItems(table, butcher).ToList();
+        __result = __instance.DetachValuableItems(table, butcher).ToList();
         if (!__instance.IsDessicated() && __instance.InnerPawn.RaceProps.BloodDef != null)
         {
             FilthMaker.TryMakeFilth(butcher.Position, butcher.Map, __instance.InnerPawn.RaceProps.BloodDef,
@@ -59,7 +59,7 @@ public static class Harvest
         }
 
         var table = butcher.CurJob?.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
-        var valuableItems = __instance.InnerPawn.DetachValuableItems(table, butcher).ToList();
+        var valuableItems = __instance.DetachValuableItems(table, butcher).ToList();
         valuableItems.AddRange(__result);
         if (!__instance.IsDessicated() && __instance.InnerPawn.RaceProps.BloodDef != null)
         {
@@ -193,14 +193,15 @@ public static class Harvest
         return rnd < livingChance;
     }
 
-    private static IEnumerable<Thing> DetachValuableItems(this Pawn corpse, Building_WorkTable table, Pawn butcher)
+    private static IEnumerable<Thing> DetachValuableItems(this Corpse corpse, Building_WorkTable table, Pawn butcher)
     {
-        var bionicChance = HarvestPartChance(true, table, butcher, corpse);
-        var livingChance = HarvestPartChance(false, table, butcher, corpse);
-        var parts = corpse.health.hediffSet.GetNotMissingParts();
+        var pawn = corpse.InnerPawn;
+        var bionicChance = HarvestPartChance(true, table, butcher, pawn);
+        var livingChance = HarvestPartChance(false, table, butcher, pawn);
+        var parts = pawn.health.hediffSet.GetNotMissingParts();
         foreach (var record in parts)
         {
-            var hediffs = from x in corpse.health.hediffSet.hediffs
+            var hediffs = from x in pawn.health.hediffSet.hediffs
                 where x.Part == record
                 select x;
             if (hediffs.Any())
@@ -213,13 +214,16 @@ public static class Harvest
                         continue;
                     }
 
-                    if (corpse.GetRotStage() != RotStage.Fresh && hediff.def.spawnThingOnRemoved.IsNaturalOrgan)
+                    if ((corpse.GetRotStage() != RotStage.Fresh || corpse.IsDessicated() || pawn.IsMutant ||
+                         pawn.IsEntity) && !hediff.def.spawnThingOnRemoved.isTechHediff)
                     {
                         continue;
                     }
 
                     if (HarvestPart(livingChance, bionicChance, true))
                     {
+                        //Log.Message(
+                        //    $"Detaching {hediff.def.spawnThingOnRemoved.defName} from {pawn.Name} based on it being a hediff\nDessicated: {corpse.IsDessicated()}, Rotsstage: {corpse.GetRotStage()}");
                         yield return ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved);
                     }
                 }
@@ -227,7 +231,7 @@ public static class Harvest
 
             if (record.def.defName == "Skull" && ModLister.IdeologyInstalled)
             {
-                corpse.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, corpse, record));
+                pawn.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, pawn, record));
                 yield return ThingMaker.MakeThing(ThingDefOf.Skull);
                 continue;
             }
@@ -237,7 +241,7 @@ public static class Harvest
                 continue;
             }
 
-            if (corpse.GetRotStage() != RotStage.Fresh)
+            if (corpse.GetRotStage() != RotStage.Fresh || corpse.IsDessicated() || pawn.IsMutant || pawn.IsEntity)
             {
                 continue;
             }
@@ -247,7 +251,9 @@ public static class Harvest
                 continue;
             }
 
-            corpse.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, corpse, record));
+            //Log.Message(
+            //    $"Detaching {record.def.spawnThingOnRemoved.defName} from {pawn.Name} based on it being a body part.\nDessicated: {corpse.IsDessicated()}, Rotsstage: {corpse.GetRotStage()}");
+            pawn.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, pawn, record));
             yield return ThingMaker.MakeThing(record.def.spawnThingOnRemoved);
         }
     }
