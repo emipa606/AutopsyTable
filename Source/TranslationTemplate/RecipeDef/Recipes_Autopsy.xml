@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: perform autopsy -->
+  <AutopsyHumanoid.label>perform autopsy</AutopsyHumanoid.label>
+  <!-- EN: Autopsy a humanoid corpse to obtain organs. This is a respectful medical procedure and does not give negative thoughts. -->
+  <AutopsyHumanoid.description>Autopsy a humanoid corpse to obtain organs. This is a respectful medical procedure and does not give negative thoughts.</AutopsyHumanoid.description>
+  <!-- EN: Performing autopsy. -->
+  <AutopsyHumanoid.jobString>Performing autopsy.</AutopsyHumanoid.jobString>
+  <!-- EN: perform brutal autopsy -->
+  <AutopsyHumanoidBrutal.label>perform brutal autopsy</AutopsyHumanoidBrutal.label>
+  <!-- EN: Brutally perform an autopsy of a humanoid corpse to obtain organs, meat and skin. -->
+  <AutopsyHumanoidBrutal.description>Brutally perform an autopsy of a humanoid corpse to obtain organs, meat and skin.</AutopsyHumanoidBrutal.description>
+  <!-- EN: Performing brutal autopsy. -->
+  <AutopsyHumanoidBrutal.jobString>Performing brutal autopsy.</AutopsyHumanoidBrutal.jobString>
+</LanguageData>

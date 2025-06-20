@@ -5,11 +5,11 @@ namespace AutopsyTable;
 
 public class Building_AutopsyTable : Building_WorkTable
 {
-    private readonly int MAX_HOURS = 24;
+    private const int MaxHours = 24;
 
     public int getMaxHours()
     {
-        return MAX_HOURS;
+        return MaxHours;
     }
 
     private void changeHours()

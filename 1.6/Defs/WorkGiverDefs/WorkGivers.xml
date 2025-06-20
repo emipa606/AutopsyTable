@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <WorkGiverDef>
+    <defName>DoPerformAutopsy</defName>
+    <label>perform autopsy</label>
+    <giverClass>WorkGiver_DoBill</giverClass>
+    <workType>Doctor</workType>
+    <priorityInType>90</priorityInType>
+    <fixedBillGiverDefs>
+      <li>TableAutopsy</li>
+    </fixedBillGiverDefs>
+    <verb>perform autopsy</verb>
+    <gerund>performing autopsy</gerund>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+</Defs>

@@ -1,0 +1,15 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Release" />
+  </Configurations>
+  <Project Path="AutopsyTable/AutopsyTable.csproj" />
+  <Properties Name="MonoDevelopProperties">
+    <Property Name="$0.DotNetNamingPolicy" Value="$1" />
+    <Property Name="$0.StandardHeader" Value="$2" />
+    <Property Name="$1.DirectoryNamespaceAssociation" Value="None" />
+    <Property Name="$1.ResourceNamePolicy" Value="FileFormatDefault" />
+    <Property Name="$2.IncludeInNewFiles" Value="True" />
+    <Property Name="$2.Text" />
+    <Property Name="Policies" Value="$0" />
+  </Properties>
+</Solution>

@@ -8,8 +8,8 @@ using Verse.AI;
 
 namespace AutopsyTable;
 
-[HarmonyPatch(typeof(Corpse), "ButcherProducts")]
-public static class Harvest
+[HarmonyPatch(typeof(Corpse), nameof(Corpse.ButcherProducts))]
+public static class Corpse_ButcherProducts
 {
     public static bool Prefix(ref IEnumerable<Thing> __result, ref Corpse __instance, Pawn butcher)
     {
@@ -25,7 +25,7 @@ public static class Harvest
         }
 
         var table = butcher.CurJob.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
-        __result = __instance.DetachValuableItems(table, butcher).ToList();
+        __result = __instance.detachValuableItems(table, butcher).ToList();
         if (!__instance.IsDessicated() && __instance.InnerPawn.RaceProps.BloodDef != null)
         {
             FilthMaker.TryMakeFilth(butcher.Position, butcher.Map, __instance.InnerPawn.RaceProps.BloodDef,
@@ -59,7 +59,7 @@ public static class Harvest
         }
 
         var table = butcher.CurJob?.GetTarget(TargetIndex.A).Thing as Building_WorkTable;
-        var valuableItems = __instance.DetachValuableItems(table, butcher).ToList();
+        var valuableItems = __instance.detachValuableItems(table, butcher).ToList();
         valuableItems.AddRange(__result);
         if (!__instance.IsDessicated() && __instance.InnerPawn.RaceProps.BloodDef != null)
         {
@@ -70,7 +70,7 @@ public static class Harvest
         __result = valuableItems;
     }
 
-    private static float HarvestPartChance(bool bionic, Building_WorkTable table, Pawn butcher, Pawn corpse)
+    private static float harvestPartChance(bool bionic, Building_WorkTable table, Pawn butcher, Pawn corpse)
     {
         if (bionic)
         {
@@ -156,23 +156,10 @@ public static class Harvest
 
         var chance = baseFactor * tableQualityFactor * tableStuffFactor * roomInfectionFactor * doctorSkillFactor *
                      corpseAgeFactor;
-        if (!Prefs.DevMode)
-        {
-            return chance;
-        }
-
-        Log.Message($"Base chance: {baseFactor}");
-        Log.Message($"Table quality: {tableQuality} = {tableQualityFactor}");
-        Log.Message($"Table stuff: {tableStuff} = {tableStuffFactor}");
-        Log.Message($"Infection chance: {infectionChance} = {roomInfectionFactor}");
-        Log.Message($"Doctor skill: {skillLevel} = {doctorSkillFactor}");
-        Log.Message($"Corpse age: {corpseAge}h = {corpseAgeFactor}");
-        Log.Message($"Total: {chance}");
-
         return chance;
     }
 
-    private static bool HarvestPart(float livingChance, float bionicChance, bool bionic)
+    private static bool harvestPart(float livingChance, float bionicChance, bool bionic)
     {
         var rnd = Random.value;
         if (bionic)
@@ -193,21 +180,21 @@ public static class Harvest
         return rnd < livingChance;
     }
 
-    private static IEnumerable<Thing> DetachValuableItems(this Corpse corpse, Building_WorkTable table, Pawn butcher)
+    private static IEnumerable<Thing> detachValuableItems(this Corpse corpse, Building_WorkTable table, Pawn butcher)
     {
         var pawn = corpse.InnerPawn;
-        var bionicChance = HarvestPartChance(true, table, butcher, pawn);
-        var livingChance = HarvestPartChance(false, table, butcher, pawn);
+        var bionicChance = harvestPartChance(true, table, butcher, pawn);
+        var livingChance = harvestPartChance(false, table, butcher, pawn);
         var parts = pawn.health.hediffSet.GetNotMissingParts();
         foreach (var record in parts)
         {
             var hediffs = from x in pawn.health.hediffSet.hediffs
                 where x.Part == record
                 select x;
-            if (hediffs.Any())
+            var hediffArray = hediffs as Hediff[] ?? hediffs.ToArray();
+            if (hediffArray.Any())
             {
-                // bionic parts
-                foreach (var hediff in hediffs)
+                foreach (var hediff in hediffArray)
                 {
                     if (hediff.def.spawnThingOnRemoved == null)
                     {
@@ -220,10 +207,8 @@ public static class Harvest
                         continue;
                     }
 
-                    if (HarvestPart(livingChance, bionicChance, true))
+                    if (harvestPart(livingChance, bionicChance, true))
                     {
-                        //Log.Message(
-                        //    $"Detaching {hediff.def.spawnThingOnRemoved.defName} from {pawn.Name} based on it being a hediff\nDessicated: {corpse.IsDessicated()}, Rotsstage: {corpse.GetRotStage()}");
                         yield return ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved);
                     }
                 }
@@ -246,13 +231,11 @@ public static class Harvest
                 continue;
             }
 
-            if (!HarvestPart(livingChance, bionicChance, !record.def.alive))
+            if (!harvestPart(livingChance, bionicChance, !record.def.alive))
             {
                 continue;
             }
 
-            //Log.Message(
-            //    $"Detaching {record.def.spawnThingOnRemoved.defName} from {pawn.Name} based on it being a body part.\nDessicated: {corpse.IsDessicated()}, Rotsstage: {corpse.GetRotStage()}");
             pawn.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, pawn, record));
             yield return ThingMaker.MakeThing(record.def.spawnThingOnRemoved);
         }

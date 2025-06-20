@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: perform autopsy -->
+  <DoPerformAutopsy.label>perform autopsy</DoPerformAutopsy.label>
+  <!-- EN: performing autopsy -->
+  <DoPerformAutopsy.gerund>performing autopsy</DoPerformAutopsy.gerund>
+  <!-- EN: perform autopsy -->
+  <DoPerformAutopsy.verb>perform autopsy</DoPerformAutopsy.verb>
+</LanguageData>
