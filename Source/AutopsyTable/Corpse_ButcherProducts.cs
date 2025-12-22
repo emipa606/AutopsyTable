@@ -144,14 +144,13 @@ public static class Corpse_ButcherProducts
         corpse.Corpse.Age.TicksToPeriod(out var years, out var quadrums, out var days, out var hours);
         var corpseAge = hours + (24 * days) + (15 * 24 * quadrums) + (4 * 15 * 24 * years);
         var corpseAgeFactor = 1.01f;
-        switch (corpseAge)
+        var maxAge = Main.GetMaxHours();
+        var minAge = maxAge / 2;
+
+        // If the corpse is older than minAge, reduce the chance linearly down to 0.01f at maxAge
+        if (corpseAge > minAge)
         {
-            case > 12 and < 24:
-                corpseAgeFactor = ((24f - corpseAge) / 20f) + 0.01f;
-                break;
-            case >= 24:
-                corpseAgeFactor = 0.01f;
-                break;
+            corpseAgeFactor = Mathf.Clamp01((maxAge - corpseAge) / (maxAge - minAge)) + 0.01f;
         }
 
         var chance = baseFactor * tableQualityFactor * tableStuffFactor * roomInfectionFactor * doctorSkillFactor *

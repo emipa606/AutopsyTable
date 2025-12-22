@@ -9,5 +9,11 @@
     " organ harvesting",
     " butchering"
   ],
-  "LastXmlCleaning": "2025-06-20T19:21:47.8874528+02:00"
+  "LastXmlCleaning": "2025-12-22T21:20:42.4640208+01:00",
+  "Patches": true,
+  "Defs": true,
+  "Assemblies": true,
+  "LinesOfCode": 11895,
+  "LinesOfXML": 6098,
+  "CodeBaseSize": 66
 }

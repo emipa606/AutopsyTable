@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AUT.ModVersion>Installed mod-version: {0}</AUT.ModVersion>
+  <AUT.MaximumDeathTime>Maximum death-time: {0}</AUT.MaximumDeathTime>
+  <AUT.MaximumDeathTimeTT>The maximum amount of time before it becomes impossible to extract anything usable from a corpse.</AUT.MaximumDeathTimeTT>
+</LanguageData>
