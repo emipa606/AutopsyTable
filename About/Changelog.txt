@@ -1,5 +1,8 @@
 # Changelog for AutopsyTable
 
+1.6.2 - Fixed colony mechs not being able to do autopsies
+
+
 1.6.1 - Added a mod-option for the maximum time before a corpse becomes unusable
 Used DeepL to update translations for ChineseSimplified, French, German, Russian
 

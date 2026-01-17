@@ -131,11 +131,18 @@ public static class Corpse_ButcherProducts
         var infectionChance = table.GetRoom().GetStat(RoomStatDefOf.InfectionChanceFactor);
         var roomInfectionFactor = 1 - infectionChance + 0.5f;
         // BUTCHER
-        var skill = butcher.skills.GetSkill(SkillDefOf.Medicine);
+        var skill = butcher.skills?.GetSkill(SkillDefOf.Medicine);
         var skillLevel = 0;
         if (skill != null)
         {
             skillLevel = skill.Level;
+        }
+        else
+        {
+            if (butcher.IsColonyMech)
+            {
+                skillLevel = butcher.RaceProps.mechFixedSkillLevel;
+            }
         }
 
         var doctorSkillFactor = ((skillLevel * skillLevel) + 1f) / 300f;
