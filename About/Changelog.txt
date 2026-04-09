@@ -1,5 +1,8 @@
 # Changelog for AutopsyTable
 
+1.6.3 - Autopsy should no longer consume the corpse and can be done multiple times
+
+
 1.6.2 - Fixed colony mechs not being able to do autopsies
 
 

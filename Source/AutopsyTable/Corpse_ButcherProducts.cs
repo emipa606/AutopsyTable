@@ -70,6 +70,50 @@ public static class Corpse_ButcherProducts
         __result = valuableItems;
     }
 
+    public static bool HasAnyHarvestableAutopsyProducts(Corpse corpse)
+    {
+        if (corpse?.InnerPawn?.health?.hediffSet == null)
+        {
+            return false;
+        }
+
+        var pawn = corpse.InnerPawn;
+        var freshAndIntact = corpse.GetRotStage() == RotStage.Fresh
+                             && !corpse.IsDessicated()
+                             && !pawn.IsMutant
+                             && !pawn.IsEntity;
+
+        foreach (var record in pawn.health.hediffSet.GetNotMissingParts())
+        {
+            if (record.def.defName == "Skull" && ModLister.IdeologyInstalled)
+            {
+                return true;
+            }
+
+            foreach (var hediff in pawn.health.hediffSet.hediffs)
+            {
+                if (hediff.Part != record || hediff.def.spawnThingOnRemoved == null)
+                {
+                    continue;
+                }
+
+                if (!freshAndIntact && !hediff.def.spawnThingOnRemoved.isTechHediff)
+                {
+                    continue;
+                }
+
+                return true;
+            }
+
+            if (record.def.spawnThingOnRemoved != null && freshAndIntact)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private static float harvestPartChance(bool bionic, Building_WorkTable table, Pawn butcher, Pawn corpse)
     {
         if (bionic)
@@ -215,6 +259,7 @@ public static class Corpse_ButcherProducts
 
                     if (harvestPart(livingChance, bionicChance, true))
                     {
+                        pawn.health.RemoveHediff(hediff);
                         yield return ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved);
                     }
                 }
