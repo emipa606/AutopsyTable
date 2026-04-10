@@ -3,4 +3,8 @@
   <AUT.ModVersion>Installed mod-version: {0}</AUT.ModVersion>
   <AUT.MaximumDeathTime>Maximum death-time: {0}</AUT.MaximumDeathTime>
   <AUT.MaximumDeathTimeTT>The maximum amount of time before it becomes impossible to extract anything usable from a corpse.</AUT.MaximumDeathTimeTT>
+  <AUT.ConsumeInputOnNormal>Consume corpse during normal autopsy</AUT.ConsumeInputOnNormal>
+  <AUT.ConsumeInputOnNormalTT>If enabled, the corpse is consumed. If disabled, the corpse will remain without its organs.</AUT.ConsumeInputOnNormalTT>
+  <AUT.AllowRepeatUntilDepleted>Allow multiple autopsies on the same corpse</AUT.AllowRepeatUntilDepleted>
+  <AUT.AllowRepeatUntilDepletedTT>If enabled, the same corpse can be processed repeatedly while it still has valid organs to harvest.</AUT.AllowRepeatUntilDepletedTT>
 </LanguageData>

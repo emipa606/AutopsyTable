@@ -11,6 +11,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
 - Added support for autopsy of creatures from [Call of Cthulhu - Cosmic Horrors](https://steamcommunity.com/sharedfiles/filedetails/?id=765890823)
 - Removed legacy reference to HugsLib
 - Cleaned up the graphics a bit
+- The normal Autopsy does not consume the body
 
 ![Image](https://img.litet.net/logos/Notice.png)
 	

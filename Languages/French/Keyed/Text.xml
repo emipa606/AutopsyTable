@@ -4,4 +4,8 @@
   <AUT.ModVersion>Version installée du mod : {0}</AUT.ModVersion>
   <AUT.MaximumDeathTime>Durée maximale de la mort : {0}</AUT.MaximumDeathTime>
   <AUT.MaximumDeathTimeTT>Le temps maximum avant qu'il devienne impossible d'extraire quoi que ce soit d'utilisable d'un cadavre.</AUT.MaximumDeathTimeTT>
+  <AUT.ConsumeInputOnNormal>Consommer le cadavre lors d'une autopsie normale</AUT.ConsumeInputOnNormal>
+  <AUT.ConsumeInputOnNormalTT>Si cette option est activée, le cadavre est consommé. S'il est désactivé, le cadavre restera sans ses organes.</AUT.ConsumeInputOnNormalTT>
+  <AUT.AllowRepeatUntilDepleted>Autoriser plusieurs autopsies sur le même corps</AUT.AllowRepeatUntilDepleted>
+  <AUT.AllowRepeatUntilDepletedTT>Si cette option est activée, le même cadavre peut être traité à plusieurs reprises tant qu'il a encore des organes valides à prélever.</AUT.AllowRepeatUntilDepletedTT>
 </LanguageData>

@@ -235,6 +235,7 @@ public static class Corpse_ButcherProducts
         var pawn = corpse.InnerPawn;
         var bionicChance = harvestPartChance(true, table, butcher, pawn);
         var livingChance = harvestPartChance(false, table, butcher, pawn);
+        var allowRepeatUntilDepleted = AutopsyTableMod.instance?.Settings?.AllowRepeatUntilDepleted == true;
         var parts = pawn.health.hediffSet.GetNotMissingParts();
         foreach (var record in parts)
         {
@@ -257,11 +258,13 @@ public static class Corpse_ButcherProducts
                         continue;
                     }
 
-                    if (harvestPart(livingChance, bionicChance, true))
+                    if (!harvestPart(livingChance, bionicChance, true))
                     {
-                        pawn.health.RemoveHediff(hediff);
-                        yield return ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved);
+                        continue;
                     }
+
+                    pawn.health.RemoveHediff(hediff);
+                    yield return ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved);
                 }
             }
 
@@ -277,6 +280,11 @@ public static class Corpse_ButcherProducts
                 continue;
             }
 
+            if (!allowRepeatUntilDepleted)
+            {
+                pawn.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, pawn, record));
+            }
+
             if (corpse.GetRotStage() != RotStage.Fresh || corpse.IsDessicated() || pawn.IsMutant || pawn.IsEntity)
             {
                 continue;
@@ -287,7 +295,11 @@ public static class Corpse_ButcherProducts
                 continue;
             }
 
-            pawn.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, pawn, record));
+            if (allowRepeatUntilDepleted)
+            {
+                pawn.health.AddHediff(HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, pawn, record));
+            }
+
             yield return ThingMaker.MakeThing(record.def.spawnThingOnRemoved);
         }
     }

@@ -52,3 +52,20 @@ When using GitHub Copilot to assist with additional functionalities or bug fixes
 5. **Localization Enhancements:** Utilize Copilot for expanding translations or improving localization features by generating translation keys and values.
 
 By following these guidelines, contributors can effectively leverage GitHub Copilot to enhance and maintain the AutopsyTable mod while ensuring high coding standards and maintainability.
+
+## Solution Structure Notes
+
+- All relevant mod XML files are included in the solution as Solution Items under the `XML` folder. When XML updates are needed, modify those referenced files.
+- The decompiled game source is included in the solution as a read-only project named `Assembly-CSharp`. Use it as a reference when implementing or patching be
+havior.
+
+## Maintenance Rule
+
+- Keep this `copilot-instructions.md` file updated whenever functional behavior changes so documentation matches implementation.
+
+## Recent Functional Updates
+
+- Added settings: `KeepInputItem`, `AllowRepeatUntilDepleted`.
+- `Toils_Recipe_ConsumeIngredients` now applies conditional input consumption for `AutopsyHumanoid`.
+- `WorkGiver_DoBill_IsUsableIngredient_Patch` validates `AutopsyHumanoid` ingredient candidates with `HasAnyHarvestableAutopsyProducts`.
+- `Corpse_ButcherProducts` now updates extracted implant state and uses `AllowRepeatUntilDepleted` for depletion behavior.

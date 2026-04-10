@@ -4,4 +4,8 @@
   <AUT.ModVersion>Установленная версия мода: {0}</AUT.ModVersion>
   <AUT.MaximumDeathTime>Максимальное время смерти: {0}</AUT.MaximumDeathTime>
   <AUT.MaximumDeathTimeTT>Максимальное количество времени, через которое из трупа невозможно извлечь ничего полезного.</AUT.MaximumDeathTimeTT>
+  <AUT.ConsumeInputOnNormal>Потребление трупа при обычном вскрытии</AUT.ConsumeInputOnNormal>
+  <AUT.ConsumeInputOnNormalTT>Если включено, труп будет съеден. Если отключено, труп останется без органов.</AUT.ConsumeInputOnNormalTT>
+  <AUT.AllowRepeatUntilDepleted>Разрешить несколько вскрытий одного и того же трупа</AUT.AllowRepeatUntilDepleted>
+  <AUT.AllowRepeatUntilDepletedTT>Если включено, один и тот же труп может быть обработан несколько раз, пока у него еще есть пригодные для сбора органы.</AUT.AllowRepeatUntilDepletedTT>
 </LanguageData>

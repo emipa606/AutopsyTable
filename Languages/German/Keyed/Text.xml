@@ -4,4 +4,8 @@
   <AUT.ModVersion>Installierte Mod-Version: {0}</AUT.ModVersion>
   <AUT.MaximumDeathTime>Maximale Todeszeit: {0}</AUT.MaximumDeathTime>
   <AUT.MaximumDeathTimeTT>Die maximale Zeitspanne, bevor es unmöglich wird, etwas Brauchbares aus einer Leiche zu extrahieren.</AUT.MaximumDeathTimeTT>
+  <AUT.ConsumeInputOnNormal>Leiche während der normalen Autopsie verbrauchen</AUT.ConsumeInputOnNormal>
+  <AUT.ConsumeInputOnNormalTT>Wenn aktiviert, wird der Leichnam verzehrt. Wenn deaktiviert, bleibt der Leichnam ohne seine Organe.</AUT.ConsumeInputOnNormalTT>
+  <AUT.AllowRepeatUntilDepleted>Erlaube mehrere Autopsien an der gleichen Leiche</AUT.AllowRepeatUntilDepleted>
+  <AUT.AllowRepeatUntilDepletedTT>Wenn aktiviert, kann die gleiche Leiche wiederholt verarbeitet werden, während sie noch gültige Organe zu ernten hat.</AUT.AllowRepeatUntilDepletedTT>
 </LanguageData>

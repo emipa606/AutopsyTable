@@ -4,4 +4,8 @@
   <AUT.ModVersion>已安装 MOD 版本：{0}</AUT.ModVersion>
   <AUT.MaximumDeathTime>最长死亡时间：{0}</AUT.MaximumDeathTime>
   <AUT.MaximumDeathTimeTT>在无法从尸体中提取任何可用物质之前的最长时间。</AUT.MaximumDeathTimeTT>
+  <AUT.ConsumeInputOnNormal>在正常解剖过程中吞噬尸体</AUT.ConsumeInputOnNormal>
+  <AUT.ConsumeInputOnNormalTT>如果启用，尸体将被吞噬。如果禁用，尸体将没有器官。</AUT.ConsumeInputOnNormalTT>
+  <AUT.AllowRepeatUntilDepleted>允许对同一尸体进行多次解剖</AUT.AllowRepeatUntilDepleted>
+  <AUT.AllowRepeatUntilDepletedTT>如果启用，同一具尸体在仍有有效器官可收获时可重复处理。</AUT.AllowRepeatUntilDepletedTT>
 </LanguageData>

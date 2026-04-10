@@ -8,6 +8,8 @@ namespace AutopsyTable;
 /// </summary>
 internal class AutopsyTableSettings : ModSettings
 {
+    public bool AllowRepeatUntilDepleted;
+    public bool ConsumeCorpse;
     public int MaximumDeathTime = GenDate.TicksPerDay;
 
     /// <summary>
@@ -17,5 +19,7 @@ internal class AutopsyTableSettings : ModSettings
     {
         base.ExposeData();
         Scribe_Values.Look(ref MaximumDeathTime, "MaximumDeathTime", GenDate.TicksPerDay);
+        Scribe_Values.Look(ref ConsumeCorpse, "ConsumeCorpse");
+        Scribe_Values.Look(ref AllowRepeatUntilDepleted, "AllowRepeatUntilDepleted");
     }
 }

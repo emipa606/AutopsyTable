@@ -21,9 +21,6 @@
   <Folder Name="/XML/About/">
     <File Path="../About/about.xml" />
   </Folder>
-  <Folder Name="/XML/" />
-  <Folder Name="/XML/1.6/" />
-  <Folder Name="/XML/1.6/Defs/" />
   <Folder Name="/XML/1.6/Defs/RecipeDefs/">
     <File Path="../1.6/Defs/RecipeDefs/Recipes_Autopsy.xml" />
   </Folder>
@@ -32,5 +29,8 @@
   </Folder>
   <Folder Name="/XML/1.6/Patches/">
     <File Path="../1.6/Patches/Patch_CosmicHorrors.xml" />
+  </Folder>
+  <Folder Name="/XML/Languages/English/Keyed/">
+    <File Path="../Languages/English/Keyed/Text.xml" />
   </Folder>
 </Solution>

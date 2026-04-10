@@ -52,6 +52,21 @@ internal class AutopsyTableMod : Mod
         Settings.MaximumDeathTime = (int)listingStandard.SliderLabeled(
             "AUT.MaximumDeathTime".Translate(Settings.MaximumDeathTime.ToStringTicksToPeriod()),
             Settings.MaximumDeathTime, 0, GenDate.TicksPerQuadrum, tooltip: "AUT.MaximumDeathTimeTT".Translate());
+
+        listingStandard.CheckboxLabeled("AUT.ConsumeInputOnNormal".Translate(), ref Settings.ConsumeCorpse,
+            "AUT.ConsumeInputOnNormalTT".Translate());
+
+        if (!Settings.ConsumeCorpse)
+        {
+            listingStandard.CheckboxLabeled("AUT.AllowRepeatUntilDepleted".Translate(),
+                ref Settings.AllowRepeatUntilDepleted,
+                "AUT.AllowRepeatUntilDepletedTT".Translate());
+        }
+        else
+        {
+            Settings.AllowRepeatUntilDepleted = false;
+        }
+
         if (currentVersion != null)
         {
             listingStandard.Gap();

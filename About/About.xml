@@ -34,6 +34,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1495723533
 - Added support for autopsy of creatures from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=765890823]Call of Cthulhu - Cosmic Horrors[/url]
 - Removed legacy reference to HugsLib
 - Cleaned up the graphics a bit
+- The normal Autopsy does not consume the body
 
 [img]https://img.litet.net/logos/Notice.png[/img]
 
@@ -70,5 +71,5 @@ Remove organs and bionics from corpses.
 [/list] 
 
 [url=https://steamcommunity.com/sharedfiles/filedetails/changelog/2102410542][img]https://img.shields.io/github/v/release/emipa606/AutopsyTable?label=latest%20version&amp;style=plastic&amp;color=9f1111&amp;labelColor=black[/img][/url] | tags: organ harvesting, butchering, dissection</description>
-  <modVersion IgnoreIfNoMatchingField="True">1.6.3</modVersion>
+  <modVersion IgnoreIfNoMatchingField="True">1.6.4</modVersion>
 </ModMetaData>
