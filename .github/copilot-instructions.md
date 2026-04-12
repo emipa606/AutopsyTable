@@ -1,71 +1,64 @@
-# GitHub Copilot Instructions for AutopsyTable (Continued)
+# GitHub Copilot Instructions for AutopsyTable Mod (Continued)
 
 ## Mod Overview and Purpose
-
-**AutopsyTable (Continued)** is a RimWorld mod that enhances gameplay by introducing advanced mechanics for dealing with corpses. It allows colonists to perform autopsies and remove organs or bionics without incurring the usual butchering debuff, thereby making the process more civilization-friendly. The mod has been updated with additional translations and improved support for other mods and game expansions.
+The **AutopsyTable** mod enhances the gameplay of RimWorld by allowing players to perform detailed autopsies on corpses. This is an update to the original mod by bodlosh, incorporating new features, enhanced support, and improved gameplay mechanics. The purpose of the mod is to provide more depth to post-mortem procedures by offering players the ability to extract organs, bionics, and other resources from corpses with varied outcomes based on their approach.
 
 ## Key Features and Systems
 
-- **Bifurcated Autopsy Options:** 
-  - **Normal Autopsy:** Yields only organs and bionics without a butchering debuff.
-  - **Brutal Autopsy:** Provides additional resources like skin/flesh but induces a butchering debuff.
-  
-- **Integration with Ideology Expansion:**
-  - Autopsies may result in skulls appearing, reflecting game lore and ideology mechanics.
+### New Autopsy Types
+- **Normal Autopsy**: Allows extraction of organs and bionics without incurring a butcher debuff. The corpse is not consumed in the process.
+- **Brutal Autopsy**: Generates skin and flesh parts along with a butcher debuff. 
 
-- **Support for Cosmic Horrors:** 
-  - Provides compatibility for autopsying creatures from the "Call of Cthulhu - Cosmic Horrors" mod.
+### Ideology Support
+- Additional functionality is added for players with the Ideology expansion, introducing a chance for skulls to spawn during autopsies.
 
-- **Dynamic Success Calculations:**
-  - Success of autopsies is affected by factors such as the doctor's skill, corpse age, room conditions, and the quality/material of the autopsy table.
+### Compatibility with Other Mods
+- Supports autopsies of creatures from the **Call of Cthulhu - Cosmic Horrors** mod.
+
+### Factors Influencing Success
+- Doctor skill level.
+- Age of the corpse (after 24 hours, success is nearly impossible).
+- Surgery success and infection chances based on the room and material quality, with silver tables offering enhanced performance.
 
 ## Coding Patterns and Conventions
 
-- **Framework Versioning:** The mod uses multiple `.NETFramework` versions (e.g., v4.7.2, v4.8.1, v4.8), ensuring compatibility and leveraging the latest features where applicable.
+### General Conventions
+- Adhere to C# naming conventions: PascalCase for class names and methods, camelCase for method parameters and local variables.
+- Use XML documentation comments to document methods and classes to maintain clear code documentation.
 
-- **Class and Method Design:** 
-  - Use of static helper classes (e.g., `Corpse_ButcherProducts`) for modular functionality that serves the mod's key features.
-  - Focus on clear method definitions with public visibility for essential functionality and private or internal for helper functions.
+### Classes and Methods Overview
+- Utilize internal classes for mod configurations such as `AutopsyTableMod` and `AutopsyTableSettings`.
+- Extend RimWorld base classes like `Building_WorkTable` for new derived classes like `Building_AutopsyTable`.
 
-## XML Integration
-
-- XML files define in-game objects and behaviors that the C# code interacts with. Proper XML structures ensure compatibility with RimWorld's mod loading system.
-- XML naming conventions should reflect in-game terminology for easier understanding and consistency.
+### XML Integration
+- Use XML files for configuration and localization to facilitate mod updates and translations. This setup enables seamless addition of new translations like the included Russian translation by jose.
 
 ## Harmony Patching
-
-- Harmony is utilized for method patching to maintain mod compatibility with game updates and other mods.
-- Proper notation of Harmony patches should be included to ensure maintainability, and arranged to preserve game stability.
+- Implement Harmony Patches for integrating new functionalities or modifying the game's base behavior without changing original source code.
+- Example: Use a static class `WorkGiver_DoAutopsyBill` to patch and alter the base game's methods where necessary.
 
 ## Suggestions for Copilot
+- **Mirroring Patterns**: Copilot can assist with generating repetitive code structures, such as creating new autopsy types by following the existing classes and methods like `Building_AutopsyTable`.
+- **Documentation**: Leverage Copilot to fill in XML documentation comments for methods and classes where missing.
+- **Localization**: Use Copilot to suggest additional translations or help format new XML translation files.
+- **Harmony Patches**: Facilitate writing new patches by suggesting Harmony patch templates based on existing usage.
 
-When using GitHub Copilot to assist with additional functionalities or bug fixes:
+## Troubleshooting and Support
+- Ensure that any persistent error is tested by isolating the mod with its requirements active and using the Log Uploader for detailed reporting.
+- For best support, engage with the community on Discord channels dedicated to error-reporting instead of posting it as a discussion thread.
+- Use RimSort for optimal mod organization to avoid conflicts.
 
-1. **Code Consistency:** Ensure newly generated code adheres to existing coding styles and conventions used within the mod.
-   
-2. **Patching Instructions:** Leverage Copilot to draft initial Harmony patches but always review and test them thoroughly for errors or conflicts.
-   
-3. **Unit Testing:** Use Copilot to aid in creating unit tests that verify the functionality of critical methods such as `getMaxHours()` in `Building_AutopsyTable`.
+## Tags
+`organ harvesting`, `butchering`, `dissection`
 
-4. **Documentation:** Encourage Copilot to generate appropriate documentation comments that detail method behaviors and their use cases. This is particularly useful for methods with public access.
 
-5. **Localization Enhancements:** Utilize Copilot for expanding translations or improving localization features by generating translation keys and values.
 
-By following these guidelines, contributors can effectively leverage GitHub Copilot to enhance and maintain the AutopsyTable mod while ensuring high coding standards and maintainability.
+This `.github/copilot-instructions.md` file provides comprehensive guidelines and insights into the mod’s features, coding principles, XML integration, and Harmony patching practices. It also outlines suggestions for using GitHub Copilot effectively in this context.
 
-## Solution Structure Notes
-
-- All relevant mod XML files are included in the solution as Solution Items under the `XML` folder. When XML updates are needed, modify those referenced files.
-- The decompiled game source is included in the solution as a read-only project named `Assembly-CSharp`. Use it as a reference when implementing or patching be
-havior.
-
-## Maintenance Rule
-
-- Keep this `copilot-instructions.md` file updated whenever functional behavior changes so documentation matches implementation.
-
-## Recent Functional Updates
-
-- Added settings: `KeepInputItem`, `AllowRepeatUntilDepleted`.
-- `Toils_Recipe_ConsumeIngredients` now applies conditional input consumption for `AutopsyHumanoid`.
-- `WorkGiver_DoBill_IsUsableIngredient_Patch` validates `AutopsyHumanoid` ingredient candidates with `HasAnyHarvestableAutopsyProducts`.
-- `Corpse_ButcherProducts` now updates extracted implant state and uses `AllowRepeatUntilDepleted` for depletion behavior.
+## Project Solution Guidelines
+- Relevant mod XML files are included as Solution Items under the solution folder named XML, these can be read and modified from within the solution.
+- Use these in-solution XML files as the primary files for reference and modification.
+- The .github/copilot-instructions.md file is included in the solution under the .github solution folder, so it should be read/modified from within the solution instead of using paths outside the solution. Update this file once only, as it and the parent-path solution reference point to the same file in this workspace.
+- When making functional changes in this mod, ensure the documented features stay in sync with implementation; use the in-solution .github copy as the primary file.
+- In the solution is also a project called Assembly-CSharp, containing a read-only version of the decompiled game source, for reference and debugging purposes.
+- For any new documentation, update this copilot-instructions.md file rather than creating separate documentation files.

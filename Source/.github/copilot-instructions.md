@@ -9,7 +9,7 @@
 - Normal flow: `AutopsyHumanoid`
 - Alternate flow: `AutopsyHumanoidBrutal`
 - Settings used by normal flow:
-  - `KeepInputItem`
+  - `ConsumeCorpse`
   - `AllowRepeatUntilDepleted`
 - Patch points in current implementation:
   - `Toils_Recipe_ConsumeIngredients`
@@ -17,3 +17,4 @@
   - `Corpse_ButcherProducts`
 - `WorkGiver_DoBill_IsUsableIngredient_Patch` uses `HasAnyHarvestableAutopsyProducts` to avoid selecting depleted input items for `AutopsyHumanoid`.
 - `Corpse_ButcherProducts` updates extracted implant state and uses `AllowRepeatUntilDepleted` to control depletion behavior for the normal flow.
+- Sorting support uses special filter worker `SpecialThingFilterWorker_AutopsiedCorpse`, which matches corpses by `HasAnyHarvestableAutopsyProducts`.
