@@ -5,7 +5,7 @@
     <label>perform autopsy</label>
     <giverClass>WorkGiver_DoBill</giverClass>
     <workType>Doctor</workType>
-    <priorityInType>90</priorityInType>
+    <priorityInType>15</priorityInType>
     <fixedBillGiverDefs>
       <li>TableAutopsy</li>
     </fixedBillGiverDefs>

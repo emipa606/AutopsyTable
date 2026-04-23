@@ -1,5 +1,8 @@
 # Changelog for AutopsyTable
 
+1.6.6 - Lowered the autopsy work prio to not interefere with normal doctor work
+
+
 1.6.5 - Added filter for corpses that can be autopsied
 
 
