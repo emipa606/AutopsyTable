@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <SpecialThingFilterDef>
+    <defName>AUT_AutopsiedCorpses</defName>
+    <label>allow non-autopsied corpses</label>
+    <description>Corpses that still can be autopsied.</description>
+    <parentCategory>CorpsesHumanlike</parentCategory>
+    <saveKey>AUT_AutopsiedCorpses</saveKey>
+    <allowedByDefault>false</allowedByDefault>
+    <workerClass>AutopsyTable.SpecialThingFilterWorker_AutopsiedCorpse</workerClass>
+  </SpecialThingFilterDef>
+</Defs>
